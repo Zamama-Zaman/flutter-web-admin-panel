@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 class DeviceManagePage extends StatefulWidget {
@@ -11,6 +12,7 @@ class DeviceManagePage extends StatefulWidget {
 
 class _DeviceManagePageState extends State<DeviceManagePage> {
   bool? isChecked = false;
+  bool showBaseLine = false;
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +41,7 @@ class _DeviceManagePageState extends State<DeviceManagePage> {
               SizedBox(height: screenHeight / 15),
               Container(
                 height: screenHeight / 1.6,
-                width: screenWidth / 4,
+                width: screenWidth / 3.8,
                 decoration: BoxDecoration(
                   border: Border.all(
                     color: Colors.blue,
@@ -64,25 +66,25 @@ class _DeviceManagePageState extends State<DeviceManagePage> {
                         ),
                       ),
                     ),
-                    SizedBox(height: screenHeight / 80),
+                    SizedBox(height: screenHeight / 40),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
                       child: Text("Device ID"),
                     ),
-                    SizedBox(height: screenHeight / 80),
+                    SizedBox(height: screenHeight / 60),
                     Container(
                       width: double.infinity,
                       height: screenHeight / 25,
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 20,
-                      ),
+                      padding: EdgeInsets.symmetric(horizontal: 10),
                       child: TextField(
                         cursorColor: Colors.black,
-                        keyboardType: TextInputType.phone,
                         decoration: InputDecoration(
                           focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.black),
-                            borderRadius: BorderRadius.zero,
+                            borderSide: BorderSide(
+                              color: Colors.black,
+                              width: 1.5,
+                            ),
+                            borderRadius: BorderRadius.circular(5),
                           ),
                           border: OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.black87),
@@ -94,7 +96,7 @@ class _DeviceManagePageState extends State<DeviceManagePage> {
                     ),
                     SizedBox(height: screenHeight / 80),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      padding: const EdgeInsets.only(left: 10, right: 20),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -102,9 +104,13 @@ class _DeviceManagePageState extends State<DeviceManagePage> {
                           Row(
                             children: [
                               Transform.scale(
-                                scale: .6,
+                                scale: .7,
                                 child: Checkbox(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(5),
+                                  ),
                                   value: isChecked,
+                                  splashRadius: 0.0,
                                   onChanged: (val) {
                                     setState(() {
                                       isChecked = val;
@@ -112,7 +118,7 @@ class _DeviceManagePageState extends State<DeviceManagePage> {
                                   },
                                 ),
                               ),
-                              Text("Show"),
+                              Text(isChecked! ? "Hide" : "Show"),
                             ],
                           )
                         ],
@@ -123,7 +129,7 @@ class _DeviceManagePageState extends State<DeviceManagePage> {
                       width: double.infinity,
                       height: screenHeight / 25,
                       padding: EdgeInsets.symmetric(
-                        horizontal: 20,
+                        horizontal: 10,
                       ),
                       child: TextField(
                         obscureText: !isChecked!,
@@ -131,8 +137,11 @@ class _DeviceManagePageState extends State<DeviceManagePage> {
                         keyboardType: TextInputType.phone,
                         decoration: InputDecoration(
                           focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.black),
-                            borderRadius: BorderRadius.zero,
+                            borderSide: BorderSide(
+                              color: Colors.black,
+                              width: 1.5,
+                            ),
+                            borderRadius: BorderRadius.circular(5),
                           ),
                           border: OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.black87),
@@ -140,6 +149,47 @@ class _DeviceManagePageState extends State<DeviceManagePage> {
                           ),
                           contentPadding: EdgeInsets.zero,
                         ),
+                      ),
+                    ),
+                    SizedBox(height: screenHeight / 60),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 30),
+                      child: Container(
+                        height: screenHeight / 7,
+                        width: double.infinity,
+                        color: Colors.green,
+                      ),
+                    ),
+                    SizedBox(height: screenHeight / 30),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 80),
+                      child: Container(
+                        height: screenHeight / 15,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5),
+                          border: Border.all(
+                            color: Colors.black,
+                            width: .5,
+                          ),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Icon(Icons.settings, color: Colors.blue),
+                              Text("Manage Device"),
+                              SizedBox(),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: screenHeight / 50),
+                    Center(
+                      child: Text(
+                        "Enter Device ID & Key to manage playlists",
                       ),
                     ),
                   ],
@@ -152,11 +202,43 @@ class _DeviceManagePageState extends State<DeviceManagePage> {
               SizedBox(height: screenHeight / 80),
               Text(
                 "Please don't ask about how to get playlist. We don't sell playlist or subscription!",
+                style: TextStyle(
+                  color: Colors.red.shade900,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
               SizedBox(height: screenHeight / 80),
-              Text(
-                "Looking for more information? Visit DuplexPlay website",
+              RichText(
+                text: TextSpan(
+                  text: 'Looking for more information? Visit ',
+                  children: <InlineSpan>[
+                    TextSpan(
+                      mouseCursor: SystemMouseCursors.click,
+                      onEnter: (event) {
+                        setState(() {
+                          showBaseLine = true;
+                        });
+                      },
+                      onExit: (event) {
+                        setState(() {
+                          showBaseLine = false;
+                        });
+                      },
+                      text: 'DuplexPlay website',
+                      style: TextStyle(
+                        decoration: showBaseLine
+                            ? TextDecoration.underline
+                            : TextDecoration.none,
+                        color: Colors.blue,
+                        textBaseline: TextBaseline.alphabetic,
+                      ),
+                    ),
+                  ],
+                ),
               ),
+              //   Text(
+              //   "Looking for more information? Visit DuplexPlay website",
+              // ),
             ],
           ),
         ),
