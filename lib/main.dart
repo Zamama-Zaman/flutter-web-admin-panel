@@ -1,3 +1,6 @@
+// ignore_for_file: prefer_const_constructors
+
+import 'package:duplex_pro_web_app_dashboard/presentation/pages/device_manage_page.dart';
 import 'package:duplex_pro_web_app_dashboard/presentation/pages/home_page.dart';
 import 'package:duplex_pro_web_app_dashboard/presentation/pages/manage_category_page.dart';
 import 'package:duplex_pro_web_app_dashboard/presentation/pages/manage_item_page.dart';
@@ -16,13 +19,17 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        appBarTheme: AppBarTheme(
+          backgroundColor: Colors.black87,
+        ),
       ),
-      home: HomePage(),
-      initialRoute: HomePage.id,
+      // home: HomePage(),
+      initialRoute: DeviceManagePage.id,
       routes: {
-        HomePage.id: (context) => HomePage(),
-        ManageCategoryPage.id: (context) => ManageCategoryPage(),
-        ManageItemPage.id: (context) => ManageItemPage(),
+        DeviceManagePage.id: (context) => DeviceManagePage(),
+        // HomePage.id: (context) => HomePage(),
+        // ManageCategoryPage.id: (context) => ManageCategoryPage(),
+        // ManageItemPage.id: (context) => ManageItemPage(),
       },
     );
   }
