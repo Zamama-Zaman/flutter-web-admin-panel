@@ -4,6 +4,7 @@ import 'package:duplex_pro_web_app_dashboard/presentation/pages/device_manage_pa
 import 'package:duplex_pro_web_app_dashboard/presentation/pages/home_page.dart';
 import 'package:duplex_pro_web_app_dashboard/presentation/pages/manage_category_page.dart';
 import 'package:duplex_pro_web_app_dashboard/presentation/pages/manage_item_page.dart';
+import 'package:duplex_pro_web_app_dashboard/presentation/pages/manage_playlist_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -24,9 +25,9 @@ class MyApp extends StatelessWidget {
         ),
       ),
       // home: HomePage(),
-      initialRoute: DeviceManagePage.id,
+      initialRoute: ManagePlaylistPage.id,
       routes: {
-        DeviceManagePage.id: (context) => DeviceManagePage(),
+        ManagePlaylistPage.id: (context) => ManagePlaylistPage(),
         // HomePage.id: (context) => HomePage(),
         // ManageCategoryPage.id: (context) => ManageCategoryPage(),
         // ManageItemPage.id: (context) => ManageItemPage(),
