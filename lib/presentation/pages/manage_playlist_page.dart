@@ -314,7 +314,9 @@ class _ManagePlaylistPageState extends State<ManagePlaylistPage> {
                   ),
                 ),
                 child: InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    showCustomDialog(context);
+                  },
                   child: Row(
                     children: [
                       Icon(
@@ -407,4 +409,318 @@ class _ManagePlaylistPageState extends State<ManagePlaylistPage> {
       ),
     );
   }
+}
+
+void showCustomDialog(BuildContext context) {
+  bool isChecked = false;
+  showGeneralDialog(
+    context: context,
+    barrierLabel: "Playlist",
+    barrierDismissible: false,
+    barrierColor: Colors.black.withOpacity(0.1),
+    // transitionDuration: Duration(milliseconds: 700),
+    pageBuilder: (_, __, ___) {
+      return Center(
+        child: Container(
+          height: 700,
+          width: 600,
+          margin: EdgeInsets.only(top: 35),
+          decoration: BoxDecoration(
+            color: Colors.transparent,
+            border: Border.all(color: Colors.black, width: .5),
+          ),
+          child: Scaffold(
+            appBar: AppBar(
+              title: Text(
+                "Playlist",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              automaticallyImplyLeading: false,
+              backgroundColor: Constants.kBlueColor,
+              elevation: 0,
+            ),
+            body: Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 10.0,
+                vertical: 10.0,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text("Playlist name"),
+                  SizedBox(height: 5),
+                  SizedBox(
+                    width: double.infinity,
+                    height: MediaQuery.of(context).size.height / 25,
+                    child: TextField(
+                      cursorColor: Colors.black,
+                      decoration: InputDecoration(
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.black,
+                            width: 1.5,
+                          ),
+                          borderRadius: BorderRadius.circular(2),
+                        ),
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.black87),
+                          borderRadius: BorderRadius.circular(2),
+                        ),
+                        contentPadding: EdgeInsets.zero,
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                  Text("Playlist URL (.M3U or .M3U8)"),
+                  SizedBox(height: 5),
+                  SizedBox(
+                    width: double.infinity,
+                    height: MediaQuery.of(context).size.height / 8,
+                    child: TextField(
+                      maxLines: 7,
+                      cursorColor: Colors.black,
+                      decoration: InputDecoration(
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.black,
+                            width: 1.5,
+                          ),
+                          borderRadius: BorderRadius.circular(2),
+                        ),
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.black87),
+                          borderRadius: BorderRadius.circular(2),
+                        ),
+                        contentPadding: EdgeInsets.only(top: 10),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                  Text("XMLTV EPG Url (Optional)"),
+                  SizedBox(height: 5),
+                  SizedBox(
+                    width: double.infinity,
+                    height: MediaQuery.of(context).size.height / 15,
+                    child: TextField(
+                      maxLines: 7,
+                      cursorColor: Colors.black,
+                      decoration: InputDecoration(
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.black,
+                            width: 1.5,
+                          ),
+                          borderRadius: BorderRadius.circular(2),
+                        ),
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.black87),
+                          borderRadius: BorderRadius.circular(2),
+                        ),
+                        contentPadding: EdgeInsets.only(top: 10),
+                      ),
+                    ),
+                  ),
+                  StatefulBuilder(
+                    builder: (context, setState) => Row(
+                      children: [
+                        Transform.scale(
+                          scale: .8,
+                          child: Checkbox(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            value: isChecked,
+                            splashRadius: 0.0,
+                            onChanged: (val) {
+                              setState(() {
+                                isChecked = val!;
+                              });
+                            },
+                          ),
+                        ),
+                        Text(
+                          "Protect this playlist",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 31.0),
+                    child: Text(
+                      "Protected playlists will not be viewed or modified without entering PIN",
+                      style: TextStyle(
+                        color: Constants.kGreenColor,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                  Row(
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text("PIN"),
+                              SizedBox(
+                                  width:
+                                      MediaQuery.of(context).size.width / 6.6),
+                              Row(
+                                children: [
+                                  StatefulBuilder(
+                                    builder: (context, setState) => Row(
+                                      children: [
+                                        Transform.scale(
+                                          scale: .7,
+                                          child: Checkbox(
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(5),
+                                            ),
+                                            value: isChecked,
+                                            splashRadius: 0.0,
+                                            onChanged: (val) {
+                                              setState(() {
+                                                isChecked = val!;
+                                              });
+                                            },
+                                          ),
+                                        ),
+                                        Text(
+                                          isChecked ? "Hide" : "Show",
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: MediaQuery.of(context).size.height / 25,
+                            width: MediaQuery.of(context).size.width / 4.5,
+                            child: TextField(
+                              cursorColor: Colors.black,
+                              decoration: InputDecoration(
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Colors.black,
+                                    width: 1.5,
+                                  ),
+                                  borderRadius: BorderRadius.circular(2),
+                                ),
+                                border: OutlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.black87),
+                                  borderRadius: BorderRadius.circular(2),
+                                ),
+                                contentPadding: EdgeInsets.zero,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(width: 5),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(height: 7),
+                          Text("Confirm PIN"),
+                          SizedBox(height: 8),
+                          SizedBox(
+                            height: MediaQuery.of(context).size.height / 25,
+                            width: MediaQuery.of(context).size.width / 4.5,
+                            child: TextField(
+                              cursorColor: Colors.black,
+                              decoration: InputDecoration(
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Colors.black,
+                                    width: 1.5,
+                                  ),
+                                  borderRadius: BorderRadius.circular(2),
+                                ),
+                                border: OutlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.black87),
+                                  borderRadius: BorderRadius.circular(2),
+                                ),
+                                contentPadding: EdgeInsets.zero,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 10),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 150),
+                    child: Container(
+                      height: MediaQuery.of(context).size.height / 7,
+                      width: double.infinity,
+                      color: Colors.green,
+                      child: Center(
+                        child: Text("Chepta"),
+                      ),
+                    ),
+                  ),
+                  Expanded(child: SizedBox()),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Container(
+                        height: 40,
+                        width: 120,
+                        decoration: BoxDecoration(
+                          color: Colors.green,
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                        child: Center(
+                          child: Text(
+                            "Save",
+                            style: TextStyle(
+                              color: Constants.kWhiteColor,
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(width: 5),
+                      InkWell(
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        child: Container(
+                          height: 40,
+                          width: 120,
+                          decoration: BoxDecoration(
+                            color: Colors.red,
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          child: Center(
+                            child: Text(
+                              "Cancel",
+                              style: TextStyle(
+                                color: Constants.kWhiteColor,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      );
+    },
+  );
 }

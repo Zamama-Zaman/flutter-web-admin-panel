@@ -158,6 +158,9 @@ class _DeviceManagePageState extends State<DeviceManagePage> {
                         height: screenHeight / 7,
                         width: double.infinity,
                         color: Colors.green,
+                        child: Center(
+                          child: Text("Chepta"),
+                        ),
                       ),
                     ),
                     SizedBox(height: screenHeight / 30),
