@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'dart:math';
+
 import 'package:duplex_pro_web_app_dashboard/constants.dart';
 import 'package:flutter/material.dart';
 
@@ -18,6 +20,7 @@ class _ManagePlaylistPageState extends State<ManagePlaylistPage> {
   bool isShowActiviationByDeviceBaseline = false;
   bool isShowGiftCodesBaseline = false;
   bool isShowActivateDeviceByGiftCodeBaseline = false;
+  bool showBaseLine = false;
 
   @override
   Widget build(BuildContext context) {
@@ -303,18 +306,102 @@ class _ManagePlaylistPageState extends State<ManagePlaylistPage> {
                 margin: EdgeInsets.symmetric(horizontal: 60),
                 height: 40,
                 width: 110,
-                color: Colors.blue,
-                child: Row(
-                  children: [
-                    IconButton(
-                      onPressed: () {},
-                      icon: Icon(Icons.ac_unit),
-                    ),
-                    Text("Something"),
-                  ],
+                decoration: BoxDecoration(
+                  color: Constants.kWhiteColor,
+                  borderRadius: BorderRadius.circular(5),
+                  border: Border.all(
+                    color: Constants.kBlackColor,
+                  ),
+                ),
+                child: InkWell(
+                  onTap: () {},
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.add,
+                        color: Constants.kBlueColor,
+                        size: 24,
+                      ),
+                      SizedBox(width: 2),
+                      Text("Add playlist"),
+                    ],
+                  ),
                 ),
               ),
             ),
+            SizedBox(height: screenHeight / 80),
+            Container(
+              margin: EdgeInsets.symmetric(horizontal: 60),
+              width: double.infinity,
+              height: 50,
+              decoration: BoxDecoration(
+                color: Constants.kBlueColor,
+              ),
+              child: Row(
+                children: [
+                  SizedBox(width: 5),
+                  Icon(
+                    Icons.ac_unit,
+                    color: Constants.kWhiteColor,
+                    size: 30,
+                  ),
+                  SizedBox(width: 5),
+                  Text(
+                    "Playlists",
+                    style: TextStyle(
+                      color: Constants.kWhiteColor,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: screenHeight / 15),
+            Text(
+              "Disclaimer: DuplexPlay does not include any content. You have to upload you won playlists. The developers of DuplexPlay are not responsible for the content you upload to the application",
+              textAlign: TextAlign.center,
+            ),
+            SizedBox(height: screenHeight / 80),
+            Text(
+              "Please don't ask about how to get playlist. We don't sell playlist or subscription!",
+              style: TextStyle(
+                color: Colors.red.shade900,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(height: screenHeight / 80),
+            RichText(
+              text: TextSpan(
+                text: 'Looking for more information? Visit ',
+                children: <InlineSpan>[
+                  TextSpan(
+                    mouseCursor: SystemMouseCursors.click,
+                    onEnter: (event) {
+                      setState(() {
+                        showBaseLine = true;
+                      });
+                    },
+                    onExit: (event) {
+                      setState(() {
+                        showBaseLine = false;
+                      });
+                    },
+                    text: 'DuplexPlay website',
+                    style: TextStyle(
+                      decoration: showBaseLine
+                          ? TextDecoration.underline
+                          : TextDecoration.none,
+                      color: Colors.blue,
+                      textBaseline: TextBaseline.alphabetic,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            //   Text(
+            //   "Looking for more information? Visit DuplexPlay website",
+            // ),
           ],
         ),
       ),
