@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'package:duplex_pro_web_app_dashboard/presentation/pages/manage_category_page.dart';
+import 'package:duplex_pro_web_app_dashboard/presentation/pages/manage_playlist_page.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -166,25 +168,34 @@ class _DeviceManagePageState extends State<DeviceManagePage> {
                     SizedBox(height: screenHeight / 30),
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 80),
-                      child: Container(
-                        height: screenHeight / 15,
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5),
-                          border: Border.all(
-                            color: Colors.black,
-                            width: .5,
+                      child: InkWell(
+                        onTap: () {
+                          // Navigator.pushNamed(context, ManagePlaylistPage.id);
+                          Navigator.of(context)
+                              .pushNamed(ManagePlaylistPage.id);
+                        },
+                        hoverColor: Colors.transparent,
+                        child: Container(
+                          height: screenHeight / 15,
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            border: Border.all(
+                              color: Colors.black,
+                              width: .5,
+                            ),
                           ),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Icon(Icons.settings, color: Colors.blue),
-                              Text("Manage Device"),
-                              SizedBox(),
-                            ],
+                          child: Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 10.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Icon(Icons.settings, color: Colors.blue),
+                                Text("Manage Device"),
+                                SizedBox(),
+                              ],
+                            ),
                           ),
                         ),
                       ),

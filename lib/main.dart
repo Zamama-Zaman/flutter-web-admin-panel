@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
         ),
       ),
       // home: HomePage(),
-      initialRoute: ManagePlaylistPage.id,
+      initialRoute: DeviceManagePage.id,
       routes: {
         ManagePlaylistPage.id: (context) => ManagePlaylistPage(),
         DeviceManagePage.id: (context) => DeviceManagePage(),
