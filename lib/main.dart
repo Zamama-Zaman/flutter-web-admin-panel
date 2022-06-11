@@ -1,13 +1,15 @@
 // ignore_for_file: prefer_const_constructors
-
 import 'package:duplex_pro_web_app_dashboard/presentation/pages/device_manage_page.dart';
 import 'package:duplex_pro_web_app_dashboard/presentation/pages/home_page.dart';
 import 'package:duplex_pro_web_app_dashboard/presentation/pages/manage_category_page.dart';
 import 'package:duplex_pro_web_app_dashboard/presentation/pages/manage_item_page.dart';
 import 'package:duplex_pro_web_app_dashboard/presentation/pages/manage_playlist_page.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 

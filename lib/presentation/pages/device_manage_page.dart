@@ -1,9 +1,12 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'package:duplex_pro_web_app_dashboard/domain/entities/user_entity.dart';
 import 'package:duplex_pro_web_app_dashboard/presentation/pages/manage_category_page.dart';
 import 'package:duplex_pro_web_app_dashboard/presentation/pages/manage_playlist_page.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+
+import '../../constants.dart';
 
 class DeviceManagePage extends StatefulWidget {
   static const String id = "device-manage-page";
@@ -15,6 +18,18 @@ class DeviceManagePage extends StatefulWidget {
 class _DeviceManagePageState extends State<DeviceManagePage> {
   bool? isChecked = false;
   bool showBaseLine = false;
+
+  bool isShowInvalidCredMessage = false;
+
+  TextEditingController deviceMacAddressController = TextEditingController();
+  TextEditingController deviceKeyController = TextEditingController();
+
+  @override
+  void dispose() {
+    super.dispose();
+    deviceMacAddressController.dispose();
+    deviceKeyController.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -79,6 +94,7 @@ class _DeviceManagePageState extends State<DeviceManagePage> {
                       height: screenHeight / 25,
                       padding: EdgeInsets.symmetric(horizontal: 10),
                       child: TextField(
+                        controller: deviceMacAddressController,
                         cursorColor: Colors.black,
                         decoration: InputDecoration(
                           focusedBorder: OutlineInputBorder(
@@ -134,6 +150,7 @@ class _DeviceManagePageState extends State<DeviceManagePage> {
                         horizontal: 10,
                       ),
                       child: TextField(
+                        controller: deviceKeyController,
                         obscureText: !isChecked!,
                         cursorColor: Colors.black,
                         keyboardType: TextInputType.phone,
@@ -169,10 +186,25 @@ class _DeviceManagePageState extends State<DeviceManagePage> {
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 80),
                       child: InkWell(
-                        onTap: () {
+                        onTap: () async {
                           // Navigator.pushNamed(context, ManagePlaylistPage.id);
-                          Navigator.of(context)
-                              .pushNamed(ManagePlaylistPage.id);
+                          // Navigator.of(context)
+                          //     .pushNamed(ManagePlaylistPage.id);
+                          userEntity = UserEntity(
+                            deviceId:
+                                deviceMacAddressController.text.toString(),
+                            deviceKey: deviceKeyController.text.toString(),
+                          );
+
+                          bool _check;
+                          _check = await remoteAccess
+                              .loginWithMacIDAndDeviceId(userEntity);
+                          _check
+                              ? Navigator.of(context)
+                                  .pushNamed(ManagePlaylistPage.id)
+                              : setState(() {
+                                  isShowInvalidCredMessage = !_check;
+                                });
                         },
                         hoverColor: Colors.transparent,
                         child: Container(
@@ -204,6 +236,22 @@ class _DeviceManagePageState extends State<DeviceManagePage> {
                     Center(
                       child: Text(
                         "Enter Device ID & Key to manage playlists",
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(height: screenHeight / 50),
+              Visibility(
+                visible: isShowInvalidCredMessage,
+                child: Column(
+                  children: [
+                    Text(
+                      "Invalid Credential",
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.red,
                       ),
                     ),
                   ],
